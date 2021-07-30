@@ -13,9 +13,9 @@ Python3, gcc/glang and bash required
 # Roadmap
 
  - [] basic data manipulation
-	- [] image conversion
+	- [x] image conversion
 	- [] image renaming
-	- [] image resizing 
+	- [x] image resizing 
 	- [] autolabelling 
  - [] recognition of sample components
 	- [] test with different architectures of ML
