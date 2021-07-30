@@ -5,7 +5,11 @@ Python3, gcc/glang and bash required
     Intel CPU also prefered over AMD (SSE4.1 SSE4.2 AVX AVX2 FMA)
 
 Roadmap:
-
+ -> basic data manipulation
+	-> image conversion [Done]
+	-> image renaming
+	-> image resizing [Done]
+	-> autolabelling 
  -> recognition of sample components
 	-> test with different architectures of ML
 		-> SMV
