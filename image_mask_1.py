@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Load image, create mask, and draw white circle on mask
-image = cv2.imread('1.jpeg')
+image = cv2.imread('Data/1.jpg')
 mask = np.zeros(image.shape, dtype=np.uint8)
 mask = cv2.circle(mask, (260, 300), 225, (255,255,255), -1) 
 
