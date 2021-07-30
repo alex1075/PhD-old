@@ -12,19 +12,19 @@ Python3, gcc/glang and bash required
 
 # Roadmap
 
- - [] basic data manipulation
+ - [ ] basic data manipulation
 	- [x] image conversion
-	- [] image renaming
+	- [ ] image renaming
 	- [x] image resizing 
-	- [] autolabelling 
- - [] recognition of sample components
-	- [] test with different architectures of ML
-		- [] SMV
-		- [] Random forests
-		- [] image classification
-		- [] object detection 
-		- [] metadata analysis 
- - [] enumeration of components within field of view
-	- [] use of IDs and bash scripting for calculation (may migrate to cpp)
- - [] detection of signs of infection (TBD)
+	- [ ] autolabelling 
+ - [ ] recognition of sample components
+	- [ ] test with different architectures of ML
+		- [ ] SMV
+		- [ ] Random forests
+		- [ ] image classification
+		- [ ] object detection 
+		- [ ] metadata analysis 
+ - [ ] enumeration of components within field of view
+	- [ ] use of IDs and bash scripting for calculation (may migrate to cpp)
+ - [ ] detection of signs of infection (TBD)
 
