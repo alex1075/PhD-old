@@ -1,7 +1,6 @@
 import cv2
 import glob, os
 from PIL import Image
-import cv2
 
 
 def convert(path_to_folder):
@@ -62,5 +61,5 @@ def resizeAllJpg(path_to_folder):
       resized, newheight, newwidth = resizeTo1280Max(img)
       cv2.imwrite(name_without_extension + ".jpg", resized)
 
-convert('/home/as-hunt/PhD/Data/')
+convert('/Volumes/IMAGE EXPO/30092021/K3E EDTA/')
 
