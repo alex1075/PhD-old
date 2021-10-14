@@ -2,7 +2,7 @@
 echo "Welcome to the program launcher"
 echo "Be sure to have the requirements installed"
 PS3='Choose what you would like to do today: '
-option=("TFTEST" "Benchmark" "Convert dataset to jpeg" "Quit")
+option=("TFTEST" "Benchmark" "Convert dataset to jpeg" "Convert video to jpeg" "Quit")
 select fav in "${option[@]}"; do
     case $fav in
         "TFTEST")
@@ -15,11 +15,16 @@ select fav in "${option[@]}"; do
             ;;
         "Convert dataset to jpeg")
             echo "Ensure the dataset path is correct"
-            break 
             echo "Beginning conversion"
             python Python/convert.py
-        exit
+            exit
             ;;
+        "Convert video to jpeg")
+            echo "Ensure the video is in the correct place"
+            echo "Beginning conversion"
+            python Python/make_image.py
+            exit
+           ;;
         "Quit")
             echo "User requested exit"
             exit
