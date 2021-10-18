@@ -65,5 +65,5 @@ def resizeAllJpg(path_to_folder):
       resized, newheight, newwidth = resizeTo1280Max(img)
       cv2.imwrite(name_without_extension + ".jpg", resized)
 
-convert('/home/as-hunt/PhD/Data/')
+convert('Data/')
 

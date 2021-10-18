@@ -5,9 +5,9 @@ import os
 # Read the video from specified path
 
 for f in os.listdir('Video/'):
-    name, ext = os.path.splitext(f)
+    nam, ext = os.path.splitext(f)
     if ext == '.mp4':
-        cam = cv2.VideoCapture("Video/test.mp4")
+        cam = cv2.VideoCapture('Video/' + f)
 
         try:
 
@@ -29,7 +29,7 @@ for f in os.listdir('Video/'):
 
             if ret:
                 # if video is still left continue creating images
-                name = './data/frame' + str(currentframe) + '.jpg'
+                name = './data/' + nam + '_frame_' + str(currentframe) + '.jpg'
                 print ('Creating...' + name)
 
                 # writing the extracted images
