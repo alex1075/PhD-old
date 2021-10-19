@@ -1,10 +1,9 @@
 import cv2
 import glob, os
 from PIL import Image
-import cv2
+from utils import resizeTo
 
-
-def convert(path_to_folder):
+def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
     for infile in os.listdir(path_to_folder):
         print ("file : " + infile)
         if infile[-3:] == "bmp":
@@ -32,38 +31,55 @@ def convert(path_to_folder):
         else:
             print ("Not an image")
 
-
-
-
-#Grabs biggest dimension and scales the photo so that max dim is now 1280
-def resizeTo1280Max(image, inter=cv2.INTER_AREA):
-    (height, width) = image.shape[:2]
-    if height>width:
-        newheight = 1280
-        heightratio = height/newheight
-        newwidth = int(width/heightratio)
-        resized = cv2.resize(image, dsize=(newwidth, newheight), interpolation=inter)
-        return resized, newheight, newwidth
-    elif width>height:
-        newwidth = 1280
-        widthratio = width/newwidth
-        newheight = int(height/widthratio)
-        resized = cv2.resize(image, dsize=(newwidth, newheight), interpolation=inter)
-        return resized, newheight, newwidth
-    else: 
-        print('Error')
-#Grabs biggest dimension and scales the photo so that max dim is now 1280
-
-
-#Cycles through all jpg or jpeg in a folder and uses the resizeTo1280Max
-def resizeAllJpg(path_to_folder):
+#Cycles through iamges in path_to_folder and resize them the desired size
+def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight='512', newwid='512'):
   os.chdir(path_to_folder)
   jpgs = glob.glob('./*.jpg' or './*.jpeg')
   for image in jpgs:
       name_without_extension = os.path.splitext(image)[0]
       img = cv2.imread(image)
-      resized, newheight, newwidth = resizeTo1280Max(img)
+      resized, newheight, newwidth = resizeTo(img, newhight, newwid)
       cv2.imwrite(name_without_extension + ".jpg", resized)
 
-convert('Data/')
+#Cycles through videos in path_to_folder and outputs jpg to out_folder
+def convertVideoToImage(path_to_folder='/Users/alexanderhunt/PhD/Video/', out_folder='/Users/alexanderhunt/PhD/Data/'):
+    for fi in os.listdir(path_to_folder):
+        nam, ext = os.path.splitext(fi)
+        if ext == '.mp4':
+            cam = cv2.VideoCapture(path_to_folder + fi)
+
+            try:
+                # creating a folder named data
+                if not os.path.exists(out_folder):
+                    os.makedirs(out_folder)
+
+            # if not created then raise error
+            except OSError:
+                print ('Error: Creating directory of' + out_folder)
+
+            # frame
+            currentframe = 0
+
+            while(True):
+
+                # reading from frame
+                ret,frame = cam.read()
+
+                if ret:
+                    # if video is still left continue creating images
+                    name = out_folder + nam + '_frame_' + str(currentframe) + '.jpg'
+                    print ('Creating...' + name)
+
+                    # writing the extracted images
+                    cv2.imwrite(name, frame)
+
+                    # increasing counter so that it will
+                    # show how many frames are created
+                    currentframe += 1
+                else:
+                    break
+
+            # Release all space and windows once done
+            cam.release()
+            cv2.destroyAllWindows()
 

@@ -1,0 +1,19 @@
+import cv2
+import glob, os
+from PIL import Image
+
+#Grabs biggest dimension and scales the photo so that max dim is now 1280
+def resizeTo(image, newheight=1280, newwidth=1280, inter=cv2.INTER_AREA):
+    (height, width) = image.shape[:2]
+    if height>width:
+        heightratio = height/newheight
+        newwidth = int(width/heightratio)
+        resized = cv2.resize(image, dsize=(newwidth, newheight), interpolation=inter)
+        return resized, newheight, newwidth
+    elif width>height:
+        widthratio = width/newwidth
+        newheight = int(height/widthratio)
+        resized = cv2.resize(image, dsize=(newwidth, newheight), interpolation=inter)
+        return resized, newheight, newwidth
+    else: 
+        print('Error')
