@@ -32,10 +32,11 @@ def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
             print ("Not an image")
 
 #Cycles through iamges in path_to_folder and resize them the desired size
-def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight='512', newwid='512'):
+def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight=512, newwid=512):
   os.chdir(path_to_folder)
   jpgs = glob.glob('./*.jpg' or './*.jpeg')
   for image in jpgs:
+      print ("resizing image" + image)
       name_without_extension = os.path.splitext(image)[0]
       img = cv2.imread(image)
       resized, newheight, newwidth = resizeTo(img, newhight, newwid)
