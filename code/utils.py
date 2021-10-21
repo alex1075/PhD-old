@@ -22,6 +22,17 @@ def resizeTo(image, newhigh=1280, newwid=1280, inter=cv2.INTER_AREA):
         print('Error')
 
 
-def normaliseImg(img):
-          img = (img - np.amin(img)) / (np.amax(img) - np.amin(img))
-          return img
+def normaliseImg(self, img):
+    if np.max(img)==np.min(img):
+        img_norm = (img - np.min(img)) / (np.max(img+1) - np.min(img-1))
+    else:
+        img_norm = (img - np.min(img)) / (np.max(img) - np.min(img))
+    return (img_norm * 2) - 1
+
+def softNormaliseImg(self, img):
+    pmin = np.percentile(img, 1)
+    img_norm = ((img - pmin)/(np.percentile(img, 99) - pmin))
+    return (img+1)/2
+
+def normaliseImgBack(self, img):    
+    return (img+1)/2

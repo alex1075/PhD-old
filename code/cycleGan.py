@@ -11,8 +11,9 @@ import cv2
 import matplotlib.pyplot as plt
 import imgaug as ia
 import imgaug.augmenters as iaa
+from imageTools import *
 
-
+# Generate the ML model for automatic subject detection 
 class cycleGAN():
 
     def __init__(self, N_channels = 1, input_width = 256, input_height = 256, dataset_name = None):
@@ -145,90 +146,15 @@ class cycleGAN():
         r = InstanceNormalization(axis=-1)(r)
 
         return Concatenate()([r, input_layer])
-
-    def normaliseImg(self, img):
-        if np.max(img)==np.min(img):
-            img_norm = (img - np.min(img)) / (np.max(img+1) - np.min(img-1))
-        else:
-            img_norm = (img - np.min(img)) / (np.max(img) - np.min(img))
-
-        return (img_norm * 2) - 1
-
-    def softNormaliseImg(self, img):
-        pmin = np.percentile(img, 1)
-        img_norm = ((img - pmin)/(np.percentile(img, 99) - pmin))
-        return (img+1)/2
-
-    def normaliseImgBack(self, img):
-
-        return (img+1)/2
-
-
-    def gaussianBlur(self, img, Intensity=1):
-        ImageArray = img
-        kernel = np.ones((3, 3), np.float32)
-        kernel[0] = [1,2,1]
-        kernel[1] = [2,4,2]
-        kernel[2] = kernel[0]
-        kernel = (kernel * Intensity)/16
-        blurred = cv2.filter2D(ImageArray, -1, kernel)
-        return blurred
-
-    def imageBrightnessDecrease(self, img, intensity):
-        img = np.array(img)
-        print(np.max(img))
-        print(img.shape)
-        ones = np.ones((img.shape[0],img.shape[0]))
-        brightness_decrease = ones*intensity
-        decreased = img-brightness_decrease
-        if np.min(decreased)<0:
-            decreased = np.clip(decreased, -1, 1)
-        return np.array(decreased, dtype='float')
-
-    def imageContrastIncrease(self, img, intensity):
-        ones = np.ones((img.shape[0], img.shape[0]))
-        contrast_increase = ones*intensity
-        increased = np.multiply(img,contrast_increase)
-        if np.max(increased)>1:
-            increased = np.clip(increased, -1, 1)
-        
-        return np.array(increased, dtype='float')
-
-    def getRandomCrop(self, img, crop_height, crop_width):
-        max_x = np.shape(img)[1] - crop_width
-        max_y = np.shape(img)[0] - crop_height
-
-        x = np.random.randint(1, max_x-1)
-        y = np.random.randint(1, max_y-1)
-
-        crop = img[y:y+crop_height, x:x+crop_width]
-
-        # Apply augmentation to sample
-        
-        
-        seq = iaa.Sequential([
-            iaa.Fliplr(0.5),
-            iaa.Flipud(0.5),
-        ])  
-
-        crop = seq.augment_image(crop)
-
-        return np.expand_dims(crop, axis=-1)
-    
-
-    #edit this function to take circles instead of rods
-
-    # def getRandomCircle(self):
-        # randomImg = cv2.imread(self.dataset_B[np.random.randint(0, len(self.dataset_B))], -1)
-        # normalized_cropped = self.normaliseImg(self.getRandomCrop(randomImg, 256, 256))
-        # return normalized_cropped
-
-    def getRandomSausage(self):
+ 
+   
+    #Call this function to generate circles 
+    def getRandomCircle(self):
         randomImg = cv2.imread(self.dataset_B[np.random.randint(0, len(self.dataset_B))], -1)
         normalized_cropped = self.normaliseImg(self.getRandomCrop(randomImg, 256, 256))
-
         return normalized_cropped
 
+   
     def generate_real_samples(self, n_samples, patch_shape):
         
         X = np.zeros((n_samples, self.input_width, self.input_height, self.N_channels))
@@ -254,7 +180,7 @@ class cycleGAN():
         X = np.zeros((n_samples, self.input_width, self.input_height, self.N_channels))
         
         for i in range(n_samples):
-            X[i] = self.normaliseImg(self.getRandomSausage())
+            X[i] = self.normaliseImg(self.getRandomCircle())
            
         Y = np.ones((n_samples, patch_shape, patch_shape, 1))
         
