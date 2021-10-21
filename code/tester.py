@@ -8,4 +8,4 @@ def tf_test():
  print(tf.test.is_built_with_cuda()),
  return
 
-tf_test()
+

@@ -4,19 +4,24 @@ This is the repository regarding the PhD of Alexander Hunt at the University of 
 # Requirements
 
 Python3, gcc/glang and bash required 
-  Nvidia CUDA GPU or AMD RadeonOpenCompute GPU prefereable unless using Apple M ARM CPU
+  Nvidia CUDA GPU or AMD RadeonOpenCompute GPU prefereable unless using Apple M ARM SoC
     Intel CPU also prefered over AMD (`SSE4.1` `SSE4.2` `AVX` `AVX2` `FMA`)
 
 # Install 
 
-```bash
-$ conda create -n env tensorflow-gpu==2.4.1
-$ conda activate env
-$ pip install -r requirements.txt
-# Or use this auto setup script to install it for you (optional)
-$ sudo chmod +x installer.sh
-$ ./installer.sh
-```
+```bash 
+$ conda create -n PhD python=3.9 -y
+$ conda activate PhD
+$ conda install -c apple tensorflow-deps -y
+$ conda install opencv-python
+$ conda install matplotlib
+$ conda install scikit-learn
+$ pip install --no-dependencies imgaug
+$ pip install -r requirements-$platform$.txt
+
+Double check $pip list with requiem.txt to check all has been installed successfully.
+
+
 # Roadmap
 
  - [ ] basic data manipulation
