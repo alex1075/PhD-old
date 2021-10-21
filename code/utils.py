@@ -1,6 +1,7 @@
 import cv2
 import glob, os
 from PIL import Image
+import numpy as np
 
 #Grabs biggest dimension and scales the photo so that max dim is now 1280
 def resizeTo(image, newhigh=1280, newwid=1280, inter=cv2.INTER_AREA):
@@ -19,3 +20,8 @@ def resizeTo(image, newhigh=1280, newwid=1280, inter=cv2.INTER_AREA):
         return resized, newheight, newwidth
     else: 
         print('Error')
+
+
+def normaliseImg(img):
+          img = (img - np.amin(img)) / (np.amax(img) - np.amin(img))
+          return img
