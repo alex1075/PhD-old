@@ -28,7 +28,8 @@ Double check $pip list with requiem.txt to check all has been installed successf
 	- [x] image conversion
 	- [ ] image renaming
 	- [x] image resizing 
-	- [ ] autolabelling 
+	- [x] folder creation
+	- [x] video to image conversion
  - [ ] recognition of sample components
 	- [ ] Autolabelling labelling of subjects within an image
 		- [x] Implementation of image manipulation
@@ -38,6 +39,10 @@ Double check $pip list with requiem.txt to check all has been installed successf
 		- [ ] Implementaton of cyclegan for image manipulation
 			- [x] Getting all the packages to work together
 			- [ ] Getting the cycleGan to work 
+		- [ ] auto-cropping of subjects out of original image
+			- [ ] TBD
+		- [ ] use of other ML technique to automatically sort out the cropped images
+			- [ ] TBD
 	- [ ] test with different architectures of ML
 		- [ ] SMV
 		- [ ] Random forests
