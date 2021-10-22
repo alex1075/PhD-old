@@ -70,7 +70,7 @@ class cycleGAN():
         patch_out = Conv2D(1, (4, 4), padding='same', kernel_initializer=init)(c5)
         # Define model
         model = Model(input_img, patch_out)
-        model.compile(loss='mse', optimizer=Adam(lr=0.0002, beta_1=0.5), loss_weights=[0.5])
+        model.compile(loss='mse', optimizer=Adam(learning_rate=0.0002, beta_1=0.5), loss_weights=[0.5])
 
         return model
 
@@ -128,7 +128,7 @@ class cycleGAN():
         output_b = g_model1(g_model2_output)
 
         model = Model([input_gen, input_id], [d_model_output, output_id, output_f, output_b])
-        opt = Adam(lr=0.0002, beta_1=0.5)
+        opt = Adam(learning_rate=0.0002, beta_1=0.5)
         model.compile(loss=['mse', 'mae', 'mae', 'mae'], loss_weights=[1, 5, 10, 10], optimizer=opt)
 
         return model
@@ -231,11 +231,11 @@ class cycleGAN():
         for i in range(n_samples):
             img = cv2.imread(self.dataset_A[np.random.randint(0, len(self.dataset_A))],-1)
             # print(img.shape)
-            X[i] = self.normaliseImg(self.getRandomCrop(img, 256, 256))
+            # X[i] = self.normaliseImg(self.getRandomCrop(img, 256, 256))
             # print(img.shape)
             # img = self.imageBrightnessDecrease(img, np.random.uniform(9.0, 13.0))
-            # print(img.shape)
-            # X[i] = self.imageContrastIncrease(img, intensity=np.random.uniform(1.1,1.25))
+            print(img.shape)
+            X[i] = self.imageContrastIncrease(img, intensity=np.random.uniform(1.1,1.25))
              
         Y = np.ones((n_samples, patch_shape, patch_shape, 1)) # Labels for real images
         

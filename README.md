@@ -30,6 +30,14 @@ Double check $pip list with requiem.txt to check all has been installed successf
 	- [x] image resizing 
 	- [ ] autolabelling 
  - [ ] recognition of sample components
+	- [ ] Autolabelling labelling of subjects within an image
+		- [x] Implementation of image manipulation
+			- [x] Blurr
+			- [x] Brighness 
+			- [x] Contrast
+		- [ ] Implementaton of cyclegan for image manipulation
+			- [x] Getting all the packages to work together
+			- [ ] Getting the cycleGan to work 
 	- [ ] test with different architectures of ML
 		- [ ] SMV
 		- [ ] Random forests
