@@ -4,8 +4,8 @@ This is the repository regarding the PhD of Alexander Hunt at the University of 
 # Requirements
 
 Python3, gcc/glang and bash required 
-  Nvidia CUDA GPU or AMD RadeonOpenCompute GPU prefereable unless using Apple M ARM SoC
-    Intel CPU also prefered over AMD (`SSE4.1` `SSE4.2` `AVX` `AVX2` `FMA`)
+  Nvidia CUDA GPU or AMD RadeonOpenCompute GPU prefereable unless using Apple ARM SoC
+    , Intel CPU also prefered over AMD (`SSE4.1` `SSE4.2` `AVX` `AVX2` `FMA`)
 
 # Install 
 

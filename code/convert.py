@@ -1,7 +1,8 @@
 import cv2
-import glob, os
+import glob, os, datetime
 from PIL import Image
 from code.utils import *
+from code.imageTools import *
 
 
 def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
@@ -34,7 +35,7 @@ def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
             print ("Not an image")
 
 #Cycles through iamges in path_to_folder and resize them the desired size
-def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight=342, newwid=342):
+def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight=1080, newwid=1080):
   os.chdir(path_to_folder)
   jpgs = glob.glob('./*.jpg' or './*.jpeg')
   for image in jpgs:
@@ -86,3 +87,14 @@ def normalise(path_to_folder=r'/Users/alexanderhunt/PhD/Data/'):
         print ("Normalising " + infile)
         im = normaliseImg(flute)
         cv2.imwrite(path_to_folder + infile, im)
+
+def randomCrop(path_to_folder='/Users/alexanderhunt/PhD/Data/', outfolder='/Users/alexanderhunt/PhD/Dataset/', crop_height=342, crop_width=342):
+    os.chdir(path_to_folder)
+    jpgs = glob.glob('./*.jpg' or './*.jpeg')
+    for jpg in jpgs:
+        print("randomly cropping: " + jpg)
+        flute = cv2.imread(jpg)
+        infile = jpg + "cropped" + str(datetime.datetime.now()) + ".jpg"
+        im = getRandomCrop(flute, 342, 342)
+        cv2.imwrite(outfolder + infile, im)
+        

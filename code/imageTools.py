@@ -63,3 +63,11 @@ def gaussianBlur(self, img, Intensity=1):
     blurred = cv2.filter2D(ImageArray, -1, kernel)
     return blurred
 
+# Randomly crop out a section of an image dependng on the requred size
+def getRandomCrop(image, crop_height, crop_width):
+    max_x = image.shape[1] - crop_width
+    max_y = image.shape[0] - crop_height
+    x = np.random.randint(0, max_x)
+    y = np.random.randint(0, max_y)
+    crop = image[y: y + crop_height, x: x + crop_width]
+    return crop
