@@ -18,7 +18,7 @@ $ conda install matplotlib
 $ conda install scikit-learn
 $ pip install --no-dependencies imgaug
 $ pip install -r requirements-$platform$.txt
-
+```
 Double check $pip list with requiem.txt to check all has been installed successfully.
 
 
