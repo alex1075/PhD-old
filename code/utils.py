@@ -36,3 +36,10 @@ def softNormaliseImg(self, img):
 
 def normaliseImgBack(self, img):    
     return (img+1)/2
+
+def get_size(bytes, suffix="B"):
+    factor = 1024
+    for unit in ["", "K", "M", "G", "T", "P"]:
+        if bytes < factor:
+            return f"{bytes:.2f}{unit}{suffix}"
+        bytes /= factor
