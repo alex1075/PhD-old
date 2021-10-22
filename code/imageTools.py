@@ -52,6 +52,7 @@ def imageBrightnessIncrease(self, img, intensity):
         decreased = np.clip(increased, -1, 1)
     return np.array(increased, dtype='float')
 
+# Add gaussian blur to images.
 def gaussianBlur(self, img, Intensity=1):
     ImageArray = img
     kernel = np.ones((3, 3), np.float32)
