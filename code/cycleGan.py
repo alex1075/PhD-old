@@ -1,3 +1,4 @@
+import os
 import numpy as np
 from tensorflow.keras.layers import Input, Dense, Reshape, Flatten, Dropout, Concatenate, BatchNormalization, Activation, ZeroPadding2D, LeakyReLU, Conv2D, Conv2DTranspose
 from tensorflow.keras.models import Sequential, Model
@@ -26,10 +27,12 @@ class cycleGAN():
         self.image_poolA = list()
         self.image_poolB = list()
 
-        self.dataset_A = glob.glob("Data/*.jpg")
+        self.dataset_A = glob.glob("Dataset/*.jpg")
         self.dataset_B = glob.glob("labels/*.png")
         
         self.directory = ''
+        
+        self.models_directory = os.path.join(self.directory, 'Models')
 
         self.filtersize = 128
 
@@ -41,7 +44,7 @@ class cycleGAN():
         self.c_model_AB = self.composite_model(self.g_model_AB, self.d_model_B, self.g_model_BA)
         self.c_model_BA = self.composite_model(self.g_model_BA, self.d_model_A, self.g_model_AB)
 
-    # Define Discriminator
+    # Define Discriminator (the down part, Generative Aversarial Network; )
     def define_discriminator(self, n_filt):
         # weight initialisation
         init = RandomNormal(stddev=0.02, seed=1)
@@ -231,11 +234,11 @@ class cycleGAN():
         for i in range(n_samples):
             img = cv2.imread(self.dataset_A[np.random.randint(0, len(self.dataset_A))],-1)
             # print(img.shape)
-            # X[i] = self.normaliseImg(self.getRandomCrop(img, 256, 256))
+            X[i] = self.normaliseImg(self.getRandomCrop(img, 256, 256))
             # print(img.shape)
             # img = self.imageBrightnessDecrease(img, np.random.uniform(9.0, 13.0))
-            print(img.shape)
-            X[i] = self.imageContrastIncrease(img, intensity=np.random.uniform(1.1,1.25))
+            # print(img.shape)
+            # X[i] = self.imageContrastIncrease(img, intensity=np.random.uniform(1.1,1.25))
              
         Y = np.ones((n_samples, patch_shape, patch_shape, 1)) # Labels for real images
         
@@ -354,10 +357,10 @@ class cycleGAN():
         plt.close()
         
     def saveModels(self, epoch):
-        self.g_model_AB.save(self.directory + 'g_model_AB.h5')
-        self.g_model_BA.save(self.directory + 'g_model_BA.h5')
-        self.d_model_A.save(self.directory + 'd_model_A.h5')
-        self.d_model_B.save(self.directory + 'd_model_B.h5')
+        self.g_model_AB.save(self.models_directory + 'g_model_AB.h5')
+        self.g_model_BA.save(self.models_directory+ 'g_model_BA.h5')
+        self.d_model_A.save(self.models_directory + 'd_model_A.h5')
+        self.d_model_B.save(self.models_directory + 'd_model_B.h5')
         #self.c_model_AB.save('c_model_AB_epoch_%0.6d.h5' % (epoch))
         #self.c_model_BA.save('c_model_BA_epoch_%0.6d.h5' % (epoch))
 

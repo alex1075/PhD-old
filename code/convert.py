@@ -1,8 +1,8 @@
 import cv2
 import glob, os, datetime
 from PIL import Image
-from code.utils import *
-from code.imageTools import *
+from code.helper.utils import *
+from code.helper.imageTools import *
 
 
 def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
@@ -36,8 +36,7 @@ def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
 
 #Cycles through iamges in path_to_folder and resize them the desired size
 def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight=1080, newwid=1080):
-  os.chdir(path_to_folder)
-  jpgs = glob.glob('./*.jpg' or './*.jpeg')
+  jpgs = glob.glob(path_to_folder + '*.jpg')
   for image in jpgs:
       print ("resizing image" + image)
       name_without_extension = os.path.splitext(image)[0]
@@ -79,8 +78,7 @@ def convertVideoToImage(path_to_folder='/Users/alexanderhunt/PhD/Video/', out_fo
             cv2.destroyAllWindows()
 
 def normalise(path_to_folder=r'/Users/alexanderhunt/PhD/Data/'):
-    os.chdir(path_to_folder)
-    jpgs = glob.glob('./*.jpg' or './*.jpeg')
+    jpgs = glob.glob(path_to_folder + '*.jpg')
     for infile in jpgs:
         print ("file : " + infile)
         flute = cv2.imread(infile)
@@ -88,13 +86,21 @@ def normalise(path_to_folder=r'/Users/alexanderhunt/PhD/Data/'):
         im = normaliseImg(flute)
         cv2.imwrite(path_to_folder + infile, im)
 
-def randomCrop(path_to_folder='/Users/alexanderhunt/PhD/Data/', outfolder='/Users/alexanderhunt/PhD/Dataset/', crop_height=342, crop_width=342):
-    os.chdir(path_to_folder)
-    jpgs = glob.glob('./*.jpg' or './*.jpeg')
+def randomCrop(path_to_folder='/Users/alexanderhunt/PhD/Data/', outfolder='/Users/alexanderhunt/PhD/Dataset/', crop_height=256, crop_width=256):
+    jpgs = glob.glob(path_to_folder + '*.jpg')
     for jpg in jpgs:
         print("randomly cropping: " + jpg)
-        flute = cv2.imread(jpg)
-        infile = jpg + "cropped" + str(datetime.datetime.now()) + ".jpg"
-        im = getRandomCrop(flute, 342, 342)
+        flute = cv2.imread(jpg, 0)
+        jpg_name = jpg.split('/')[-1]
+        infile = jpg_name[:-4] + "_cropped_" + str(datetime.datetime.now()) + ".jpg"
+        print(infile)
+        im = getRandomCrop(flute, crop_height, crop_width)
         cv2.imwrite(outfolder + infile, im)
-        
+
+def convert2Gray(path_to_folder='/Users/alexanderhunt/PhD/Dataset/'):
+    jpgs = glob.glob(path_to_folder  + '*.jpg')
+    for jpg in jpgs:
+        print('Converting to grayscale: ' + jpg)
+        flute = cv2.imread(jpg, 0)
+        print(flute.shape)
+        cv2.imwrite(jpg, flute)

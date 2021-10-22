@@ -43,3 +43,7 @@ def get_size(bytes, suffix="B"):
         if bytes < factor:
             return f"{bytes:.2f}{unit}{suffix}"
         bytes /= factor
+
+def rgb2gray(img):
+    img = cv2.imread(img,0)
+    return img

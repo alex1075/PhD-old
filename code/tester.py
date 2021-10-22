@@ -1,7 +1,7 @@
 
 import psutil
 import platform
-from code.utils import get_size
+from code.helper.utils import get_size
 from datetime import datetime
 import tensorflow as tf
 from ai_benchmark import AIBenchmark
