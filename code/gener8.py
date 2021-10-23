@@ -6,9 +6,7 @@ def findPosition(bg_img, top_image="logo.png", scale_range=(5,15), rotation_degr
     """
     Place one image on another image.
     """
-
     valid = False
-    
     
     #interpolation method for resizing 
     inter = cv2.INTER_AREA
@@ -16,9 +14,7 @@ def findPosition(bg_img, top_image="logo.png", scale_range=(5,15), rotation_degr
     #get background dimensions
     bg_height, bg_width = bg_img.shape[:2]
 
-
     while not valid:
-        
         #read logo
         logo = cv2.imread(top_image)
         #get logo dimensions
@@ -26,13 +22,10 @@ def findPosition(bg_img, top_image="logo.png", scale_range=(5,15), rotation_degr
         # Find Center of Background Image
         bg_center_x = int(bg_width/2)
         bg_center_y = int(bg_height/2)
-        
         #read logo array with fourth channel 
         logo_array = cv2.imread(top_image, cv2.IMREAD_UNCHANGED)
-
         #rotate the logo randomly 
         logo_array = rotateBound(logo_array, np.random.randint(rotation_degree[0], rotation_degree[1]))
-
         # generate random number for random scale
         random_number = np.random.randint(scale_range[0],scale_range[1])
         # Choose either height or width, depending which is smaller to base the logo resize on.
@@ -79,7 +72,6 @@ def findPosition(bg_img, top_image="logo.png", scale_range=(5,15), rotation_degr
         else:
             valid = True
             print("\tThere were no intersections!")
-
     return resized_logo, pos, new_logo_height, new_logo_width, bg_center_x, bg_center_y
 
 
@@ -100,8 +92,6 @@ def generateBlackImage(random_seed=36):
         center_coordinates = (np.random.randint(0 + axesLength[0] / 2, 256 - axesLength[0] / 2), np.random.randint(0 + axesLength[1] / 2 , 256 - axesLength[1] / 2))
         centers_and_dimensions.append([axesLength, center_coordinates, ellipseAngle])
 
-
-    
     # # Red color in BGR
     # color = (0)  
     # # Line thickness of 5 px
@@ -112,4 +102,3 @@ def generateBlackImage(random_seed=36):
     #        angle, startAngle, endAngle, color, thickness)
     # # Displaying the image 
     # cv2.imshow(window_name, image) 
-    
