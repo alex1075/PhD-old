@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 from PIL import Image
+from code.helper.rectangle import Rectangle
+from code.helper.transformations import rotateBound
 
 def findPosition(bg_img, top_image="logo.png", scale_range=(5,15), rotation_degree=(-12,12), exclusion_areas=[]):
     """

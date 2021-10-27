@@ -26,44 +26,33 @@ def findAverageColor(img):
 
 
 def findDominantColors(img, number_of_colors=2):
-
     pixels = np.float32(img.reshape(-1, 3))
-
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 200, 0.1)
-
     flags = cv2.KMEANS_RANDOM_CENTERS
-
     _, labels, palette = cv2.kmeans(
         pixels, number_of_colors, None, criteria, 10, flags)
     _, counts = np.unique(labels, return_counts=True)
-
     dominant = palette[np.argmax(counts)]
-
     return dominant, palette, counts
 
 
 
 def plotColors(img):
-
     dominant, palette, counts = findDominantColors(img)
     indices = np.argsort(counts)[::-1]
     freqs = np.cumsum(np.hstack([[0], counts[indices]/counts.sum()]))
     rows = np.int_(img.shape[0]*freqs)
     dom_patch = np.zeros(shape=img.shape, dtype=np.uint8)
-
     for i in range(len(rows) - 1):
         dom_patch[rows[i]:rows[i + 1], :, :] += np.uint8(palette[indices[i]])
-
     fig, (ax0, ax1) = plt.subplots(1, 2, figsize=(12, 6))
     ax0.imshow(img)
     ax0.set_title('original')
     ax0.axis('off')
-
     ax1.imshow(dom_patch)
     ax1.set_title('Dominant colors')
     ax1.axis('off')
     plt.show(fig)
-
 
 
 def distance(color1, color2):
@@ -78,11 +67,9 @@ def distance(color1, color2):
 
 def isDistanceAnyOk(bg_img, logo, pos, new_logo_width: int, new_logo_height: int, min_distance=1):
     """Check to See If the Contrast is OK"""
-
     bg_roi = bg_img[pos[1]:pos[1]+new_logo_height,
                     pos[0]:pos[0]+new_logo_width]
     dominant, palette, counts = findDominantColors(bg_roi, number_of_colors=2)
-
     avg_logo_color = findAverageColor(logo)
     for color in palette:
         print(f'\tLogo Average: {avg_logo_color}')
@@ -90,7 +77,6 @@ def isDistanceAnyOk(bg_img, logo, pos, new_logo_width: int, new_logo_height: int
         dist = distance(color, avg_logo_color)
         if(dist > min_distance):
             return True
-
     return False
 
 
@@ -157,7 +143,3 @@ def test_contast():
                         0, 0, 255]) == 8.592471358428805, "Should be 8.592 for Blue on White"
 
 
-
-if __name__ == "__main__":
-    test_contast()
-    print("Everything passed")
