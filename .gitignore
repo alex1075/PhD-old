@@ -4,4 +4,4 @@
 *.jpg
 *.jpeg
 *.pyc
-.vscode/settings.json
+settings.json
