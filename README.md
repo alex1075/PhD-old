@@ -16,6 +16,7 @@ $ conda install -c apple tensorflow-deps -y
 $ conda install opencv-python
 $ conda install matplotlib
 $ conda install scikit-learn
+$ conda install scikit-learn-intelex
 $ pip install --no-dependencies imgaug
 $ pip install -r requirements-$platform$.txt
 ```
