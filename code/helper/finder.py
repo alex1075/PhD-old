@@ -4,7 +4,7 @@ import numpy as np
 from code.helper.transformations import rotateBound
 from code.helper.rectangle import Rectangle
 
-def findPosition(bg_img, top_image="logo.png", scale_range=(5,15), rotation_degree=(-12,12), exclusion_areas=[]):
+def findPosition(bg_img, top_image, scale_range=(5,15), rotation_degree=(-12,12), exclusion_areas=[]):
 
     """
     Place one image on another image.
