@@ -10,10 +10,7 @@ from code.helper.image.findPosition import findPosition
 from ordino.utils.image.operations import overlayImage
 from ordino.utils.image.transformations import noisy, changePerspective
 from ordino.utils.image.contrastCheck import isContrastAllOk, isContrastAnyOk
-# Delete this:
-from ordino.utils.path import buildAbsPath
-from ordino.utils.xml.create import createXml
-from ordino.utils.path import buildAbsPath
+
 
 # Currently does not paste the white logo ever. Probably because the contrast for it is not high enough.
 
