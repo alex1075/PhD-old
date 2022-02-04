@@ -5,7 +5,7 @@ from code.helper.utils import *
 from code.helper.imageTools import *
 
 
-def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
+def convert(path_to_folder='/Volumes/PhD/PhD/Data/'):
     for infile in os.listdir(path_to_folder):
         print ("file : " + infile)
         if infile[-3:] == "bmp":
@@ -35,7 +35,7 @@ def convert(path_to_folder='/Users/alexanderhunt/PhD/Data/'):
             print ("Not an image")
 
 #Cycles through iamges in path_to_folder and resize them the desired size
-def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight=1080, newwid=1080):
+def resizeAllJpg(path_to_folder='/Volumes/PhD/PhD/Data/', newhight=1080, newwid=1080):
   jpgs = glob.glob(path_to_folder + '*.jpg')
   for image in jpgs:
       print ("resizing image" + image)
@@ -45,7 +45,7 @@ def resizeAllJpg(path_to_folder='/Users/alexanderhunt/PhD/Data/', newhight=1080,
       cv2.imwrite(name_without_extension + ".jpg", resized)
 
 #Cycles through videos in path_to_folder and outputs jpg to out_folder
-def convertVideoToImage(path_to_folder='/Users/alexanderhunt/PhD/Video/', out_folder='/Users/alexanderhunt/PhD/Data/'):
+def convertVideoToImage(path_to_folder='/Volumes/PhD/PhD/Video/', out_folder='/Volumes/PhD/PhD/Data/'):
     for fi in os.listdir(path_to_folder):
         nam, ext = os.path.splitext(fi)
         if ext == '.mp4':
@@ -77,7 +77,7 @@ def convertVideoToImage(path_to_folder='/Users/alexanderhunt/PhD/Video/', out_fo
             cam.release()
             cv2.destroyAllWindows()
 
-def normalise(path_to_folder=r'/Users/alexanderhunt/PhD/Data/'):
+def normalise(path_to_folder=r'/Volumes/PhD/PhD/Data/'):
     jpgs = glob.glob(path_to_folder + '*.jpg')
     for infile in jpgs:
         print ("file : " + infile)
@@ -86,7 +86,7 @@ def normalise(path_to_folder=r'/Users/alexanderhunt/PhD/Data/'):
         im = normaliseImg(flute)
         cv2.imwrite(path_to_folder + infile, im)
 
-def randomCrop(path_to_folder='/Users/alexanderhunt/PhD/Data/', outfolder='/Users/alexanderhunt/PhD/Dataset/', crop_height=256, crop_width=256):
+def randomCrop(path_to_folder='/Volumes/PhD/PhD/Data/', outfolder='/Volumes/PhD/PhD/Dataset/', crop_height=256, crop_width=256):
     jpgs = glob.glob(path_to_folder + '*.jpg')
     for jpg in jpgs:
         print("randomly cropping: " + jpg)
@@ -97,7 +97,7 @@ def randomCrop(path_to_folder='/Users/alexanderhunt/PhD/Data/', outfolder='/User
         im = getRandomCrop(flute, crop_height, crop_width)
         cv2.imwrite(outfolder + infile, im)
 
-def convert2Gray(path_to_folder='/Users/alexanderhunt/PhD/Dataset/'):
+def convert2Gray(path_to_folder='/Volumes/PhD/PhD/Dataset/'):
     jpgs = glob.glob(path_to_folder  + '*.jpg')
     for jpg in jpgs:
         print('Converting to grayscale: ' + jpg)
