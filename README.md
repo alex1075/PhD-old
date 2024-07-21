@@ -1,5 +1,6 @@
+# This repo has been archived in favour of Machine-Code and Preprocessing
 
-This is the repository regarding the PhD of Alexander Hunt at the University of Edinburgh
+
 
 # Requirements
 
